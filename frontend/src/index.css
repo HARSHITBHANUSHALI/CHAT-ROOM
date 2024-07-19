@@ -1,68 +1,160 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* Light mode colors */
+  --background-color: #ffffff;
+  --chat-background-color: #f4f4f4;
+  --header-background-color: #e0e0e0;
+  --text-background-color: #ffffff; /* Light background for messages */
+  --message-background-color: #f9f9f9; /* Light grey for messages */
+  --message-text-color: #000000; /* Black text for messages */
+  --button-background-color: #007bff;
+  --button-hover-background-color: #0056b3;
+  --input-border-color: #ccc;
+  --header-text-color: #333;
+  --time-text-color: #555; /* Darker grey for better readability */
+  --button-text-color: #ffffff;
+  --admin-text-color: #d32f2f; /* Dark red for admin messages */
+  --admin-background-color: #ffebee; /* Light red background for admin messages */
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark mode colors */
+    --background-color: #121212;
+    --chat-background-color: #1e1e1e;
+    --header-background-color: #333333;
+    --text-background-color: #2c2c2c; /* Dark background for messages */
+    --message-background-color: #444444; /* Dark grey for messages */
+    --message-text-color: #ffffff; /* White text for messages */
+    --button-background-color: #007bff;
+    --button-hover-background-color: #0056b3;
+    --input-border-color: #444;
+    --header-text-color: #e0e0e0;
+    --time-text-color: #b3b3b3; /* Light grey for better readability */
+    --button-text-color: #ffffff;
+    --admin-text-color: #ff9800; /* Bright orange for admin messages */
+    --admin-background-color: #1c1c1c; /* Dark background for admin messages */
+  }
 }
 
-body {
-  margin: 0;
+.chatPage {
   display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  justify-content: center;
+  padding: 1rem;
+  background-color: var(--background-color);
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+main {
+  width: 90%;
+  max-width: 800px;
+  background-color: var(--chat-background-color);
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+form {
+  margin-bottom: 1rem;
+}
+
+input {
+  padding: 0.5em;
+  margin-right: 0.5em;
+  border: 1px solid var(--input-border-color);
+  border-radius: 4px;
+  width: calc(50% - 1em);
+  background-color: var(--text-background-color);
+  color: var(--header-text-color);
 }
 
 button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 4px;
+  background-color: var(--button-background-color);
+  color: var(--button-text-color);
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  transition: background-color 0.3s;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+button:hover {
+  background-color: var(--button-hover-background-color);
+}
+
+.chat-display {
+  list-style: none;
+  padding: 4px;
+  max-height: 60vh;
+  overflow-y: auto;
+  overflow-wrap: break-word; /* Ensures text wraps and doesn't overflow */
+}
+
+.chat-display::-webkit-scrollbar {
+  width: 12px;
+}
+
+.chat-display::-webkit-scrollbar-track {
+  background: var(--chat-background-color);
+}
+
+.chat-display::-webkit-scrollbar-thumb {
+  background-color: var(--input-border-color);
+  border-radius: 10px;
+  border: 3px solid var(--chat-background-color);
+}
+
+.post {
+  margin: 0.5rem;
+  border-radius: 8px;
+  background-color: var(--message-background-color);
+  color: var(--message-text-color);
+  padding: 0.5em;
+  max-width: 100%; /* Ensures the message doesn't overflow the chat display */
+}
+
+.post--left .post__header {
+  text-align: left;
+}
+
+.post--right .post__header {
+  text-align: right;
+}
+
+.post__header {
+  padding: 0.5em;
+  border-radius: 8px;
+  background-color: var(--header-background-color);
+  color: var(--header-text-color);
+}
+
+.post__header--name {
+  font-weight: bold;
+}
+
+.post__header--time {
+  font-size: 1em;
+  color: var(--time-text-color);
+}
+
+.post__text {
+  padding: 0.5em;
+  border-radius: 8px;
+  background-color: var(--text-background-color);
+  color: var(--header-text-color); /* Ensure text is visible */
+}
+
+.post--admin {
+  background-color: var(--admin-background-color);
+  color: var(--admin-text-color);
+  width: calc(100% - 1em); /* Ensures the message takes the full width of the chat display */
+  margin: 0.25rem auto; /* Center the admin message */
+}
+
+.post--admin .post__header {
+  background-color: var(--admin-background-color);
+  color: var(--admin-text-color); /* Admin text color */
+}
+
+.post--admin .post__text {
+  background-color: var(--admin-background-color); /* Background for admin messages */
+  color: var(--admin-text-color); /* Admin text color */
 }
